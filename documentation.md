@@ -181,7 +181,8 @@ It also populates the distCharge and pathCharge_next_node matrices which are def
 ---
 ### Complexity Summary
 
-- **Charger Graph** — $O(P^3)$ (Floyd–Warshall)
+- **Expected Runtime** - *15-30 seconds* 
+- **Charging Station Graph** — $O(P^3)$ (Floyd–Warshall)
 - **Depot→Prof preprocessing** - $O(M * C * P^2)$ in the worst-case
 - **Order Sorting** - $O(N*log(N))$
 - **Simulation loop** -  $O(T * D)$ 
