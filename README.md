@@ -1,6 +1,6 @@
 # 10 Days to Kanpur Documentation - Hall 5 (Nawabs)
 
-Solution Code: final_solution.cpp
+Solution code: final_solution.cpp
 
 Output file: output.txt
 
