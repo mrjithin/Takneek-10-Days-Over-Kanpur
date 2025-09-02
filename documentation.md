@@ -1,9 +1,5 @@
 # 10 Days to Kanpur Documentation - Hall 5 (Nawabs)
 
-Solution code: final_solution.cpp
-
-Output file: output.txt
-
 ## Encryption Process
 
 ---
