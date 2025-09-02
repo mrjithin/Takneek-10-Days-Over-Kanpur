@@ -93,7 +93,7 @@ Convert **m** to binary, then to a string, yielding the **final password**.
 5. To achieve this, we made our solution revolve around the charging stations ie. we make a graph with the charging
    stations as the nodes and edge weights corresponding to the manhattan distance between the stations. We now
    precompute the shortest path between any two charging stations while ensuring that no edge of weight greater than a
-   certain threshold (1480) is used.
+   certain threshold (`Bmax - 20`) is used.
 5. The main idea now is that any general delivery looks
    like $D \rightarrow C_1 \rightarrow\dots\rightarrow C_k \rightarrow P$. Here $D$ stands for depot, $C_i$ for charging
    stations and $P$ for professor. There we precompute the feasible charger links between depots and professors using
@@ -116,7 +116,7 @@ Convert **m** to binary, then to a string, yielding the **final password**.
 - `input.txt`/`output.txt`: The input and output files for `final_solution.cpp`.
 - `map.png`: Visualisation of the input file.
 - `documentation.md`: Documentation explaining the approach/algorithm
-- `10Days.pptx`: Presentation of the algorithm. 
+- `10Days.pdf`: Presentation of the algorithm. 
 - `validator.cpp`: Validator code which validates the output provided by `final_solution.cpp`.
 - `passwords.txt`: Stores the decrypted list of passwords. 
 
