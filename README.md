@@ -155,7 +155,7 @@ It also populates the distCharge and pathCharge_next_node matrices which are def
 2) pathCharge_next_node[i][j] : The next charging station to visit after i in order to reach j in the shortest path
 
 - **Build feasible Depot → Prof routes (DCPpreProcess())** - For every depot d and professor c : 
-1) Compute nearby chargers for depot and professor (distance threshold 740) and enumerate candidate pairs. For each depot-charger j and prof-charger i pair pick the most efficient path. 
+1) Compute nearby chargers for depot and professor (distance threshold `Bmax/2-10`) and enumerate candidate pairs. For each depot-charger j and prof-charger i pair pick the most efficient path. `
 2) Basically the DCP stands for Depot to Charger to Professor so this is what the function does. After this store the two chosen charger indices for later path assembly. 
 
 - **Order Selection (orderPreProcess())** - 
@@ -172,14 +172,14 @@ It also populates the distCharge and pathCharge_next_node matrices which are def
 1) current charger → (intermediate chargers along get_charger_path) → depot charger → depot → charger path to professor → professor → nearest charger
 2) The waypoint list is converted to concrete grid coordinates (charger/depot/prof coordinates) and is stored in dronePath[i].
 
-3) Finally at every turn the drone either charges (if at a charger and not full), moves towards the next waypoint, performs a PICKUP depot (consuming 5 battery), or DROPOFF at prof (consuming 5 battery). Safety asserts check battery > 1 before issuing moves and >5 before pickup/dropoff.
+3) Finally at every turn the drone either charges (if at a charger and not full), moves towards the next waypoint, performs a PICKUP depot (consuming 5 battery), or DROPOFF at prof (consuming 5 battery). 
 
 - **Battery Safety** - If battery is low, the drone is routed to the nearest charger and it charges the drone until it reaches maximum battery.
 
 ---
 ### Key Constants and Heuristics Used 
 
-- **1480 and 740** which were the distance thresholds used in charger graph initialization and in feasibility filtering. These were the constants chosen to limit search and guarantee recharge paths.
+- `Bmax-20` and `Bmax/2-10` which were the distance thresholds used in charger graph initialization and in feasibility filtering. These were the constants chosen to limit search and guarantee recharge paths.
 - Orders sorted by **(deadline - appear) * value** to prioritize high-value & flexible jobs.
 
 ---
@@ -188,14 +188,13 @@ It also populates the distCharge and pathCharge_next_node matrices which are def
 - **Charger Graph** — $O(P^3)$ (Floyd–Warshall)
 - **Depot→Prof preprocessing** - $O(M * C * P^2)$ in the worst-case
 - **Order Sorting** - $O(N*log(N))$
-- **Simulation loop** -  $O(T * D * Step Path)$ where path_step is average steps per drone per turn 
-- **Memory usage** - It is dominated by distCharge and has the complexity $(P^2)$
+- **Simulation loop** -  $O(T * D)$ 
 
 ---
-### Assumtions and limitations
+### Limitations and Improvements
 - **Inventory is not actively decremented** - this was explained earlier as well. It assumes inventories are sufficient for
-queued orders. However if it tries to pickup an order whose inventory is not sufficient then also it tries to pickup the order. According to the PS it would be an invalid move and instead of pickup it would execute stay. However according to our strategy we still deduct 5 battery points and ensures that the drone is not discharged.
+queued orders. However if it tries to pickup an order whose inventory is not sufficient then also it tries to pickup the order. According to the PS it would be an invalid move and instead of pickup it would execute `STAY`. However according to our strategy we still deduct 5 battery points and ensures that the drone is not discharged.
 
-- **The system is designed for safety-first** - it avoids lost drones rather than maximal throughput or aprovably optimal schedule.
+- **The system is designed for safety-first** - it avoids lost drones rather than maximal throughput or approvably optimal schedule.
 
-- **Bruteforcing the pre-processing part** - some functions written for pre computation are brute forced and they could have been more optimised
+- **Bruteforcing the pre-processing part** - some functions written for pre computation are brute forced and they could have been more optimised. 
