@@ -22,11 +22,12 @@ is also quite close to a fourth power, specifically that of **ab**.
 
 We define:
 
-$k = \sqrt[4]{n}$
+$k = \lfloor \sqrt[4]{n} \rfloor$
 
 This **k** is only an estimate and may not equal **ab**, but the actual value will always satisfy:
 
 $ab \leq k$
+$k \leq n$
 
 ---
 
@@ -49,7 +50,7 @@ For each positive solution **a**:
 
 1. Compute a candidate  
    $p = a^4 + \text{secret}_1$
-2. Check divisibility: if \(p \mid n\), then stop and compute  
+2. Check divisibility: if $p \mid n$, then stop and compute  
    $q = \frac{n}{p}$
 3. If not, increment $k \leftarrow k+1$ and repeat.
 
