@@ -30,7 +30,7 @@ $k = \sqrt[4]{n}$
 
 This **k** is only an estimate and may not equal **ab**, but the actual value will always satisfy:
 
-$ab \geq k$
+$ab \leq k$
 
 ---
 
